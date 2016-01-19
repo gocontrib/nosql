@@ -11,6 +11,8 @@ Unified interface to NoSQL data stores.
 
 ## API
 
+Inspired by gopkg.in/mgo.v2 MongoDB driver.
+
 ```go
 // Store of document collections.
 type Store interface {
