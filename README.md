@@ -1,6 +1,14 @@
 # nosql
 Unified interface to NoSQL data stores.
 
+## Supported data store backends
+
+* [boltdb](https://github.com/boltdb/bolt)
+* [ledisdb](https://github.com/siddontang/ledisdb) which suports a lot of backends
+* mongodb using gopkg.in/mgo.v2
+* postgresql using github.com/lib/pq based on JSONB data type
+* redis like data stores (TODO list them codis, etc)
+
 ## API
 
 ```go
@@ -59,15 +67,43 @@ type Cursor interface {
 }
 ```
 
-## Supported data store backend
+## Query example
 
-* [boltdb](https://github.com/boltdb/bolt)
-* [ledisdb](https://github.com/siddontang/ledisdb) which suports a lot of backends
-* mongodb using gopkg.in/mgo.v2
-* postgresql using github.com/lib/pq based on JSONB data type
-* redis like data stores (TODO list them codis, etc)
+Query model looks like gopkg.in/mgo.v2 MongoDB driver.
+
+```go
+import "fmt"
+import "github.com/gocontrib/nosql"
+import "github.com/gocontrib/nosql/q"
+
+type Message struct {
+	ID 			string `json:"id"`
+	UserID 	string `json:"user_id"`
+	Body 		string `json:"body"`
+}
+
+func main() {
+	// configure and get store
+	store := nosql.GetStore()
+
+	// get document collection
+	messages := store.Collection("messages")
+
+	// query all messages from given user
+	var messages []Message
+	err := messages.Find(q.M{"user_id": "1"}).All(&messages)
+	if err != nil {
+		panic(err)
+	}
+	for _, m := range messages {
+		fmt.Println(m.Body)
+	}
+}
+
+```
 
 ## TODO
+* configuration and better api to create Store instance
 * stabilization (need contribution)
 * need Tx interface for multiple changes in one transaction
 * discuss and improve API
