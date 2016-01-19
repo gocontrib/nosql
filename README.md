@@ -5,13 +5,14 @@ Unified interface to NoSQL data stores.
 
 * [boltdb](https://github.com/boltdb/bolt)
 * [ledisdb](https://github.com/siddontang/ledisdb) which suports a lot of backends
-* mongodb using gopkg.in/mgo.v2
+* mongodb using [gopkg.in/mgo.v2](https://github.com/go-mgo/mgo)
 * postgresql using github.com/lib/pq based on JSONB data type
 * redis like data stores (TODO list them codis, etc)
+* easy to add any KV store (see [bolt store](https://github.com/gocontrib/nosql/blob/master/bolt/store.go))
 
 ## API
 
-Inspired by gopkg.in/mgo.v2 MongoDB driver.
+Inspired by [MongoDB driver](https://github.com/go-mgo/mgo).
 
 ```go
 // Store of document collections.
@@ -105,13 +106,17 @@ func main() {
 ```
 
 ## TODO
-* configuration and better api to create Store instance
-* stabilization (need contribution)
-* need Tx interface for multiple changes in one transaction
-* discuss and improve API
-* unit tests
+* [ ] configuration and better api to create Store instance
+* [ ] stabilization (need contribution)
+* [ ] need Tx interface for multiple changes in one transaction
+* [ ] discuss and improve API
+* [ ] unit tests
 * [ ] optimizations
 	* [ ] postgresql
 		* [ ] query cache
 		* [ ] sql builder
 		* [ ] maybe reduce use of fmt
+* [ ] new drivers
+	* [ ] sqlite with JSON1 extension
+	* [ ] MariaDB
+	* [ ] [TiDB](https://github.com/pingcap/tidb)
