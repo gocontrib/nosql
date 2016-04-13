@@ -6,6 +6,7 @@ import (
 
 	"github.com/gocontrib/log"
 	"github.com/gocontrib/nosql"
+	"github.com/gocontrib/nosql/util"
 
 	// load postgresql driver
 	_ "github.com/lib/pq"
@@ -28,7 +29,8 @@ func init() {
 // Open postgresql data store.
 // dropDatabase only for testing use
 func Open(connectionURL string, databaseName string, dropDatabase bool) (data.Store, error) {
-	var db, err = sql.Open("postgres", connectionURL)
+	constr := util.ReplaceEnv(connectionURL)
+	var db, err = sql.Open("postgres", constr)
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +46,7 @@ func Open(connectionURL string, databaseName string, dropDatabase bool) (data.St
 		debug.Error("unable to create database: %v", err)
 	}
 
-	db, err = sql.Open("postgres", connectionURL+" dbname="+databaseName)
+	db, err = sql.Open("postgres", constr+" dbname="+databaseName)
 	if err != nil {
 		return nil, err
 	}

@@ -2,8 +2,6 @@ package tests
 
 import (
 	"flag"
-	"fmt"
-	"os"
 	"testing"
 
 	"github.com/gocontrib/log"
@@ -50,13 +48,8 @@ func BenchmarkPostgreStore_Read(b *testing.B) {
 func makePgStore() data.Store {
 	flag.Parse()
 
-	var pwd = os.Getenv("PGPWD")
-	if len(pwd) == 0 {
-		log.Fatal("PGPWD env is not set")
-	}
-
-	var (
-		dburl  = fmt.Sprintf("user=postgres password=%s sslmode=disable", pwd)
+	const (
+		dburl  = "user=postgres password=$PGPWD sslmode=disable"
 		dbname = "test"
 	)
 
