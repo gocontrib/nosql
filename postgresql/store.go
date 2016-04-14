@@ -38,7 +38,9 @@ func Open(connectionURL string, databaseName string, dropDatabase bool) (data.St
 
 	if dropDatabase {
 		_, err = db.Exec(fmt.Sprintf("DROP DATABASE IF EXISTS %s", databaseName))
-		debug.Error("unable to drop database: %v", err)
+		if err != nil {
+			debug.Error("unable to drop database: %v", err)
+		}
 	}
 
 	_, err = db.Exec(fmt.Sprintf("CREATE DATABASE %s", databaseName))
