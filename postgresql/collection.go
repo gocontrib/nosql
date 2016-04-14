@@ -35,12 +35,8 @@ func (c *collection) init() error {
 		return err
 	}
 	c.created = true
-	// TODO use IF NOT EXISTS (will be done in postgresql 9.5)
-	_, err = c.db.Exec(fmt.Sprintf("CREATE INDEX idx_%s on %s using GIN(data jsonb_path_ops)", c.name, c.name))
-	if err != nil {
-		// log.Debug("unable to create postgresql index: %v", err)
-	}
-	return nil
+	_, err = c.db.Exec(fmt.Sprintf("CREATE INDEX IF NOT EXISTS idx_%s on %s using GIN(data jsonb_path_ops)", c.name, c.name))
+	return err
 }
 
 func (c *collection) Exec(query string, args ...interface{}) (sql.Result, error) {

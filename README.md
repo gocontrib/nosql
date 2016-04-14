@@ -6,7 +6,7 @@ Unified interface to NoSQL data stores.
 * [boltdb](https://github.com/boltdb/bolt)
 * [ledisdb](https://github.com/siddontang/ledisdb) which suports a lot of backends
 * mongodb using [gopkg.in/mgo.v2](https://github.com/go-mgo/mgo)
-* postgresql using github.com/lib/pq based on JSONB data type
+* postgresql 9.5+ using github.com/lib/pq based on JSONB data type
 * redis like data stores (TODO list them codis, etc)
 * easy to add any KV store (see [bolt store](https://github.com/gocontrib/nosql/blob/master/bolt/store.go))
 
