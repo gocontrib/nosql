@@ -12,18 +12,16 @@ import (
 	_ "github.com/lib/pq"
 )
 
-var (
-	debug = log.IfDebug("postgresql")
-)
+var debug = log.IfDebug("postgresql")
+
+func init() {
+	data.RegisterDriver(&driver{}, "pg", "postgre", "postgresql")
+}
 
 type driver struct{}
 
 func (d *driver) Open(url, db string) (data.Store, error) {
 	return Open(url, db, false)
-}
-
-func init() {
-	data.RegisterDriver(&driver{}, "pg", "postgre", "postgresql")
 }
 
 // Open postgresql data store.

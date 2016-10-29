@@ -8,15 +8,15 @@ import (
 
 var debug = log.IfDebug("redis")
 
+func init() {
+	data.RegisterDriver(&driver{}, "redis")
+}
+
 type driver struct{}
 
 func (d *driver) Open(url, db string) (data.Store, error) {
 	// TODO support db parameter if it is not in URL
 	return Open(url, false)
-}
-
-func init() {
-	data.RegisterDriver(&driver{}, "redis")
 }
 
 // Open redis store.

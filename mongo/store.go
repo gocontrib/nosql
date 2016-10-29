@@ -5,14 +5,14 @@ import (
 	"gopkg.in/mgo.v2"
 )
 
+func init() {
+	data.RegisterDriver(&driver{}, "mongo", "mongodb")
+}
+
 type driver struct{}
 
 func (d *driver) Open(url, dbname string) (data.Store, error) {
 	return Open(url, dbname, false)
-}
-
-func init() {
-	data.RegisterDriver(&driver{}, "mongo", "mongodb")
 }
 
 // Open mongo data store.

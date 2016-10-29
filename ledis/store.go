@@ -13,6 +13,10 @@ import (
 
 var debug = log.IfDebug("ledis")
 
+func init() {
+	data.RegisterDriver(&driver{}, "ledis", "ledisdb")
+}
+
 type driver struct{}
 
 func (d *driver) Open(path, db string) (data.Store, error) {
@@ -21,10 +25,6 @@ func (d *driver) Open(path, db string) (data.Store, error) {
 		return nil, err
 	}
 	return Open(path, int(i), false)
-}
-
-func init() {
-	data.RegisterDriver(&driver{}, "ledis", "ledisdb")
 }
 
 // Open ledis store.
