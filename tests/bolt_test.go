@@ -6,7 +6,7 @@ import (
 
 	"github.com/gocontrib/log"
 	"github.com/gocontrib/nosql"
-	"github.com/gocontrib/nosql/bolt"
+	"github.com/gocontrib/nosql/boltdb"
 )
 
 func TestBoltStore_Basic(t *testing.T) {
@@ -52,7 +52,7 @@ func makeBoltStore() data.Store {
 		path = "test.db"
 	)
 
-	var store, err = bolt.Open(path, true)
+	var store, err = boltdb.Open(path, true)
 	if err != nil {
 		log.Fatal("unable to connect to database with %s: %+v", path, err)
 	}

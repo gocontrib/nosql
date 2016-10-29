@@ -1,4 +1,4 @@
-package bolt
+package boltdb
 
 import (
 	"os"
@@ -11,6 +11,10 @@ import (
 	"github.com/gocontrib/nosql/kv"
 )
 
+func init() {
+	data.RegisterDriver(&driver{}, "bolt", "boltdb")
+}
+
 type driver struct{}
 
 func (d *driver) Open(dir, db string) (data.Store, error) {
@@ -19,10 +23,6 @@ func (d *driver) Open(dir, db string) (data.Store, error) {
 		dbpath = path.Join(dir, db)
 	}
 	return Open(dbpath, false)
-}
-
-func init() {
-	data.RegisterDriver(&driver{}, "bolt", "boltdb")
 }
 
 // Open bolt data store.
